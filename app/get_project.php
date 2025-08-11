@@ -80,8 +80,10 @@ if ($_SESSION['role'] == 'admin') {
                     <div class="dropdown-content">
                         <a href="detail-project.php?id=<?= $project['id'] ?>">Xem</a>
                         <a href="app/export_project_report.php?id=<?= $project['id'] ?>">Xuất báo cáo</a>
-                        <a href="edit-project.php?id=<?= $project['id'] ?>">Sửa</a>
-                        <a href="app/delete-project.php?id=<?= $project['id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa dự án này?')">Xóa</a>
+                        <?php if ($_SESSION['role'] == 'admin') { ?>
+                            <a href="edit-project.php?id=<?= $project['id'] ?>">Sửa</a>
+                            <a href="app/delete-project.php?id=<?= $project['id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa dự án này?')">Xóa</a>
+                        <?php } ?>
                     </div>
                 </div>
             </td>

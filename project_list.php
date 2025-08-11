@@ -16,7 +16,11 @@ if (isset($_SESSION['role']) && isset($_SESSION['id'])) {
 		<div class="body">
 			<?php include "inc/nav.php" ?>
 			<section class="user">
-				<h4 class="title"><a href="create_project.php"><i class="fa fa-plus"></i> Thêm dự án mới</a></h4>
+				<?php if ($_SESSION['role'] == 'admin') { ?>
+					<h4 class="title"><a href="create_project.php"><i class="fa fa-plus"></i> Thêm dự án mới</a></h4>
+				<?php } else { ?>
+					<h2 class="title">Dự án của tôi</h2>
+				<?php } ?>
 				<form action="" method="get">
 					<label>Tìm kiếm: </label>
 					<input type="text" id="searchProject" name="search" placeholder="Nhập thông tin dự án">
