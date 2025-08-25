@@ -52,11 +52,11 @@ foreach ($tasks as $task) {
         // Gửi thông báo cho từng employee
         $employee_ids = explode(',', $task['employee_id']);
         foreach ($employee_ids as $emp_id) {
-            $message = "Công việc '{$task['title']}' đã quá hạn. Vui lòng xem và hoàn thành ngay.";
+            $message = "Công việc '{$task['title']}' đã quá hạn {$today->diff($task_end_date)->days} ngày. Vui lòng xem và hoàn thành ngay.";
             // Kiểm tra đã có thông báo chưa (tránh gửi trùng)
-            $sql = "SELECT id FROM notifications WHERE task_id=? AND recipient=? AND type='Đã quá hạn'";
+            $sql = "SELECT id FROM notifications WHERE task_id=? AND recipient=? AND type='Đã quá hạn' AND DATE(date)=?";
             $stmt = $conn->prepare($sql);
-            $stmt->execute([$task['id'], $emp_id]);
+            $stmt->execute([$task['id'], $emp_id, $today->format('Y-m-d')]);
             if ($stmt->rowCount() == 0) {
                 insert_notification_task($conn, [
                     $task['id'],
